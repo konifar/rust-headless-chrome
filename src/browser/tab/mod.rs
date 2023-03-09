@@ -521,7 +521,7 @@ impl Tab {
         Ok(self)
     }
     
-    pub fn wait_for_url(&self, url: &str) -> Fallible<&Self> {
+    pub fn wait_for_url(&self, url: &str) -> Result<&Self> {
         util::Wait::with_timeout(Duration::from_secs(20)).until(|| {
             if &self.get_url() == url {
                 Some(true)
