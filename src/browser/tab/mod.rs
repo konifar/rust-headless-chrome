@@ -520,6 +520,19 @@ impl Tab {
 
         Ok(self)
     }
+    
+    pub fn wait_for_url(&self, url: &str) -> Fallible<&Self> {
+        util::Wait::with_timeout(Duration::from_secs(20)).until(|| {
+            if &self.get_url() == url {
+                Some(true)
+            } else {
+                None
+            }
+        })?;
+        debug!("A tab finised navigating url");
+
+        Ok(self)
+    }
 
     // Pulls focus to this tab
     pub fn bring_to_front(&self) -> Result<Page::BringToFrontReturnObject> {
